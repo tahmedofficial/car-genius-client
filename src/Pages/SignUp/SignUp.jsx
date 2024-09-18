@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import img from "../../assets/images/login/login.svg";
 
-const Login = () => {
 
-    const handleLogin = event => {
-        event.proventDefault();
+const SignUp = () => {
 
+    const handleSignUp = (event) => {
+        event.preventDefault();
     }
 
     return (
@@ -15,8 +15,14 @@ const Login = () => {
                     <img src={img} alt="" />
                 </div>
                 <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-                    <form onSubmit={handleLogin} className="card-body">
-                        <h1 className="text-3xl text-center font-bold">Login now!</h1>
+                    <form onSubmit={handleSignUp} className="card-body">
+                        <h1 className="text-3xl text-center font-bold">Sign Up</h1>
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Name</span>
+                            </label>
+                            <input type="text" name="name" placeholder="name" className="input input-bordered" required />
+                        </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Email</span>
@@ -25,7 +31,7 @@ const Login = () => {
                         </div>
                         <div className="form-control">
                             <label className="label">
-                                <span className="label-text">Password</span>
+                                <span className="label-text">Confirm Password</span>
                             </label>
                             <input type="password" name="password" placeholder="password" className="input input-bordered" required />
                             <label className="label">
@@ -33,14 +39,14 @@ const Login = () => {
                             </label>
                         </div>
                         <div className="form-control mt-6">
-                            <input className="btn btn-primary" type="text" value="Login" />
+                            <input className="btn btn-primary" type="text" value="Sign Up" />
                         </div>
                     </form>
-                    <p className="my-4 text-center">New to car genius <Link to="/signUp" className="text-orange-500 font-bold">Sign Up</Link></p>
+                    <p className="my-4 text-center">Already have an account <Link to="/login" className="text-orange-500 font-bold">Login</Link></p>
                 </div>
             </div>
         </div>
     );
 };
 
-export default Login;
+export default SignUp;
