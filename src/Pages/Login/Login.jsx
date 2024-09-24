@@ -1,11 +1,25 @@
 import { Link } from "react-router-dom";
 import img from "../../assets/images/login/login.svg";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const Login = () => {
 
+    const { signInUser } = useContext(AuthContext);
+
     const handleLogin = event => {
         event.proventDefault();
+        const form = event.target;
+        const email = form.email.value;
+        const password = form.password.vlaue;
+        console.log(email, password);
 
+        signInUser(email, password)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+            })
+            .catch(error => console.log(error))
     }
 
     return (
@@ -33,7 +47,7 @@ const Login = () => {
                             </label>
                         </div>
                         <div className="form-control mt-6">
-                            <input className="btn btn-primary" type="text" value="Login" />
+                            <button className="btn btn-primary">Login</button>
                         </div>
                     </form>
                     <p className="my-4 text-center">New to car genius <Link to="/signUp" className="text-orange-500 font-bold">Sign Up</Link></p>
