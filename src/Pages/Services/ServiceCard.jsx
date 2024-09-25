@@ -1,9 +1,10 @@
 import PropTypes from "prop-types";
 import { FaArrowRight } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const ServiceCard = ({ service }) => {
 
-    const { title, img, price } = service;
+    const { _id, title, img, price } = service;
 
     return (
         <div className="card bg-base-100 w-96 shadow-xl">
@@ -14,7 +15,11 @@ const ServiceCard = ({ service }) => {
                 <h2 className="card-title">{title}</h2>
                 <div className="flex justify-between">
                     <p className="text-orange-500">Price: ${price}</p>
-                    <button className="text-orange-500"><FaArrowRight /></button>
+                    <div>
+                        <Link to={`/checkout/${_id}`}>
+                            <button className="text-orange-500 btn">Book Now<FaArrowRight /></button>
+                        </Link>
+                    </div>
                 </div>
             </div>
         </div>
