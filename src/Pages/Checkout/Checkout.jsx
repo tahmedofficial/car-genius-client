@@ -6,7 +6,7 @@ const Checkout = () => {
 
     const service = useLoaderData();
     const { user } = useContext(AuthContext);
-    const { _id, title, price } = service;
+    const { _id, title, price, img } = service;
     console.log(service);
 
     const handleBookService = (event) => {
@@ -15,14 +15,31 @@ const Checkout = () => {
         const name = form.name.value;
         const date = form.date.value;
         const email = user?.email;
-        const order = {
+        const booking = {
             name,
+            img,
             email,
             date,
-            service: _id,
+            service: title,
+            service_id: _id,
             price
         }
-        console.log(order);
+        console.log(booking);
+
+        fetch("http://localhost:5000/bookings", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(booking)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.insertedId) {
+                    alert("service book successfully")
+                }
+            })
     }
 
     return (
