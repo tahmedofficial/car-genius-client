@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import { RxCross1 } from "react-icons/rx";
 
-const BookingRow = ({ booking, handleDelete }) => {
+const BookingRow = ({ booking, handleDelete, handleBookingConfirm }) => {
 
-    const { _id, img, date, service, price } = booking;
+    const { _id, img, date, service, price, status } = booking;
 
 
     return (
@@ -22,7 +22,10 @@ const BookingRow = ({ booking, handleDelete }) => {
             <td>{date}</td>
             <td>${price}</td>
             <th>
-                <button className="btn btn-ghost btn-xs">details</button>
+                {
+                    status === "Confirm" ? <span className="font-bold text-primary">Confirmed</span>
+                        : <button onClick={() => handleBookingConfirm(_id)} className="btn btn-xs">Please Confirm</button>
+                }
             </th>
         </tr>
     );
@@ -32,5 +35,6 @@ export default BookingRow;
 
 BookingRow.propTypes = {
     booking: PropTypes.object,
-    handleDelete: PropTypes.func
+    handleDelete: PropTypes.func,
+    handleBookingConfirm: PropTypes.func
 }
