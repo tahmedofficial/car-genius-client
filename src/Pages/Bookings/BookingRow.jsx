@@ -1,15 +1,15 @@
 import PropTypes from "prop-types";
+import { RxCross1 } from "react-icons/rx";
 
-const BookingRow = ({ booking }) => {
+const BookingRow = ({ booking, handleDelete }) => {
 
-    const { img, date, service, price } = booking;
+    const { _id, img, date, service, price } = booking;
+
 
     return (
         <tr>
             <th>
-                <label>
-                    <input type="checkbox" className="checkbox" />
-                </label>
+                <button onClick={() => handleDelete(_id)} className="btn btn-sm btn-circle"><RxCross1 /></button>
             </th>
             <td>
                 <div className="avatar">
@@ -31,5 +31,6 @@ const BookingRow = ({ booking }) => {
 export default BookingRow;
 
 BookingRow.propTypes = {
-    booking: PropTypes.object
+    booking: PropTypes.object,
+    handleDelete: PropTypes.func
 }
