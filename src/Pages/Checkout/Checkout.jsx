@@ -26,7 +26,7 @@ const Checkout = () => {
         }
         console.log(booking);
 
-        fetch("http://localhost:5000/bookings", {
+        fetch(`${import.meta.env.VITE_url}/bookings`, {
             method: "POST",
             headers: {
                 "content-type": "application/json"

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import img from "../../assets/images/login/login.svg";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
@@ -6,18 +6,22 @@ import { AuthContext } from "../../providers/AuthProvider";
 const Login = () => {
 
     const { signInUser } = useContext(AuthContext);
+    const location = useLocation();
+    const navigate = useNavigate();
+    console.log(location);
+
 
     const handleLogin = event => {
-        event.proventDefault();
+        event.preventDefault();
         const form = event.target;
         const email = form.email.value;
-        const password = form.password.vlaue;
-        console.log(email, password);
+        const password = form.password.value;
 
         signInUser(email, password)
             .then(result => {
                 const user = result.user;
                 console.log(user);
+                navigate(location?.state ? location.state : "/", { replace: true })
             })
             .catch(error => console.log(error))
     }
@@ -42,9 +46,6 @@ const Login = () => {
                                 <span className="label-text">Password</span>
                             </label>
                             <input type="password" name="password" placeholder="password" className="input input-bordered" required />
-                            <label className="label">
-                                <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
-                            </label>
                         </div>
                         <div className="form-control mt-6">
                             <button className="btn btn-primary">Login</button>
