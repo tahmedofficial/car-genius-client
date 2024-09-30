@@ -1,5 +1,5 @@
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../providers/AuthProvider";
+import { useEffect, useState } from "react";
+import useAuth from "../../hooks/useAuth";
 import BookingRow from "./BookingRow";
 import Swal from "sweetalert2";
 import axios from "axios";
@@ -7,7 +7,7 @@ import axios from "axios";
 
 const Bookings = () => {
 
-    const { user, alertMessage } = useContext(AuthContext);
+    const { user, alertMessage } = useAuth();
     const [bookings, setBookings] = useState([]);
 
     const url = `${import.meta.env.VITE_url}/bookings?email=${user?.email}`;
