@@ -2,20 +2,19 @@ import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import BookingRow from "./BookingRow";
 import Swal from "sweetalert2";
-import axios from "axios";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 
 const Bookings = () => {
 
     const { user, alertMessage } = useAuth();
+    const axiosSecure = useAxiosSecure();
     const [bookings, setBookings] = useState([]);
 
-    const url = `${import.meta.env.VITE_url}/bookings?email=${user?.email}`;
-
     useEffect(() => {
-        axios.get(url, { withCredentials: true })
+        axiosSecure.get(`/bookings?email=${user?.email}`)
             .then(res => setBookings(res.data))
-    }, [url])
+    }, [user, axiosSecure])
 
     const handleDelete = (id) => {
         Swal.fire({
