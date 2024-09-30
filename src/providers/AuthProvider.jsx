@@ -3,6 +3,7 @@ import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndP
 import { createContext, useEffect, useState } from "react";
 import auth from "../firebase/firebase.config";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 export const AuthContext = createContext();
 
@@ -39,13 +40,25 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser);
-            console.log(currentUser);
+            const email = currentUser?.email || user?.email;
+            if (currentUser) {
+                axios.post(`${import.meta.env.VITE_url}/jwt`, { email: email }, { withCredentials: true })
+                    .then(res => {
+                        console.log(res.data);
+                    })
+            }
+            else {
+                axios.post(`${import.meta.env.VITE_url}/logout`, { email: email }, { withCredentials: true })
+                    .then(res => {
+                        console.log(res.data);
+                    })
+            }
             setLoading(false);
         });
         return () => {
             return unsubscribe();
         }
-    }, [])
+    }, [user])
 
     const authInfo = {
         user,
